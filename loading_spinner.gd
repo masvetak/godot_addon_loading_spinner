@@ -20,6 +20,9 @@ var tween: Tween = null
 func _ready() -> void:
 	_update()
 
+func _exit_tree() -> void:
+	_tween_stop()
+
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_EDITOR_PRE_SAVE:
