@@ -18,15 +18,12 @@ var tween: Tween = null
 # ------------------------------------------------------------------------------
 
 func _ready() -> void:
-	self.fill_mode = FillMode.FILL_CLOCKWISE
-	self.radial_initial_angle = 0
-	self.radial_fill_degrees = 45
-	self.value = 100
-	
 	_update()
 
-func _exit_tree() -> void:
-	_tween_stop()
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_EDITOR_PRE_SAVE:
+			_update_initial_data()
 
 # ------------------------------------------------------------------------------
 # Private methods
@@ -40,6 +37,14 @@ func _tween_start() -> void:
 func _tween_stop() -> void:
 	tween.stop()
 	tween.kill()
+
+func _update_initial_data() -> void:
+	if not self.is_inside_tree(): return
+	
+	self.fill_mode = FillMode.FILL_CLOCKWISE
+	self.radial_initial_angle = 0
+	self.radial_fill_degrees = 45
+	self.value = 100
 
 func _update_active() -> void:
 	if not self.is_inside_tree(): return
@@ -62,6 +67,7 @@ func _update_textures() -> void:
 	self.texture_progress = LOADING_SPINNER_TEXTURE
 
 func _update() -> void:
+	_update_initial_data()
 	_update_active()
 	_update_color()
 	_update_textures()
