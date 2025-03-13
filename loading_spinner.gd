@@ -44,6 +44,7 @@ func _tween_stop() -> void:
 func _update_initial_data() -> void:
 	if not self.is_inside_tree(): return
 	
+	self.nine_patch_stretch = true
 	self.fill_mode = FillMode.FILL_CLOCKWISE
 	self.radial_initial_angle = 0
 	self.radial_fill_degrees = 45
