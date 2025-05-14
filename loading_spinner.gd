@@ -38,6 +38,7 @@ func _tween_start() -> void:
 	tween.tween_property(self, "radial_initial_angle", 360.0, 1.0).as_relative()
 
 func _tween_stop() -> void:
+	if tween == null: return
 	tween.stop()
 	tween.kill()
 
